@@ -12,7 +12,7 @@ def update_weather_data(api_key, lat, lng):
         lng=lng,
     )
     response = requests.get(url)
-    return response.json
+    return response.content
 
 if __name__ == "__main__":
     api_key = sys.argv[1]
