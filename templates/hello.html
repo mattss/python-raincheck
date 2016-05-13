@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>Rain Check</title>
+        <script src="static/skycons.js"></script>
+        <link rel="stylesheet" type="text/css" href="static/style.css" />
+    </head>
+    <body >
+        <p>
+            <canvas id="icon-main" width="200" height="200"></canvas>
+        </p>
+        <script>
+            var skycons = new Skycons({"color": "#555"});
+            skycons.add("icon-main", Skycons.RAIN);
+            skycons.play();
+        </script>
+
+    </body>
+</html>
