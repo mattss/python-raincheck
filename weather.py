@@ -42,6 +42,7 @@ class RainChecker(object):
                 prob = item['precipProbability']
                 percentage = prob * 100
                 amount = item['precipIntensity']
+                print(prob, amount)
                 if prob > 0.1 and amount > 0.005:
                     date = self._offset_date(
                         datetime.fromtimestamp(item['time']),
@@ -76,6 +77,6 @@ class RainChecker(object):
 
 if __name__ == "__main__":
     api_key = sys.argv[1]
-    checker = RainChecker(api_key, 52, -2.5)
+    checker = RainChecker(api_key, 51.45, -2.6)
     result = checker.check()
     print(result)
