@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import render_template
-from weather import update_weather_data
+from weather import RainChecker
 
 app = Flask(__name__)
 
@@ -9,7 +9,8 @@ app = Flask(__name__)
 def checkit(key):
     latitude = 51.45
     longitude = 2.5
-    weather = update_weather_data(key, latitude, longitude)
+    checker = RainChecker(key, latitude, longitude)
+    weather = str(checker.check())
     return render_template('hello.html', weather=weather)
 
 
