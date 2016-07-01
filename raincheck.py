@@ -10,13 +10,13 @@ def checkit(key):
     latitude = 51.45
     longitude = -2.6
     checker = RainChecker(key, latitude, longitude)
-    weather = str(checker.check())
+    weather = checker.check()
     return render_template('hello.html', weather=weather)
 
 
 @app.route("/")
 def home():
-    return render_template('hello.html', weather='')
+    return render_template('hello.html', weather=None)
 
 if __name__ == "__main__":
     app.run()
