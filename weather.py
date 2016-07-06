@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 
 API_URL = 'https://api.forecast.io/forecast'
 API_KEY = os.environ['API_KEY']
+GEO_URL = 'https://maps.googleapis.com/maps/api/geocode/json'
 # How many hours ahead should we show alerts for?
 FORECAST_HOURS = 18
 
@@ -28,6 +29,20 @@ class RainChecker(object):
         )
         response = requests.get(url)
         return response.json()
+
+    def _get_location(self):
+        """Grab location data from lat/lng"""
+        url = "{base}?latlng={lat},{lng}".format(
+            base=GEO_URL,
+            lat=self.latitude,
+            lng=self.longitude,
+        )
+        response = requests.get(url)
+        results = response.json()['results']
+        try:
+            return results[0]['formatted_address']
+        except IndexError:
+            return '(unknown location)'
 
     def _parse_feed_data(self, data):
         """Parse the feed and find the next rain"""
@@ -71,11 +86,23 @@ class RainChecker(object):
 
     def check(self):
         data = self._get_feed_data()
-        parsed = self._parse_feed_data(data)
-        return parsed
+        result = self._parse_feed_data(data)
+        location = self._get_location()
+        result['location'] = location
+        summary = result['summary'].lower()
+        if 'sunny' in summary:
+            result['icon'] = 'sun'
+        elif 'clear' in summary:
+            result['icon'] = 'sun'
+        elif 'rain' in summary:
+            result['icon'] = 'rain'
+        else:
+            result['icon'] = 'cloud'
+        return result
 
 
 if __name__ == "__main__":
-    checker = RainChecker(51.45, -2.6)
+    checker = RainChecker(51.4607289, -2.5870727)
     result = checker.check()
-    print(result)
+    from pprint import pprint
+    pprint(result)

@@ -10,7 +10,13 @@
         </p>
         <script>
             var skycons = new Skycons({"color": "#555"});
+            {% if weather.icon == 'rain' %}
             skycons.add("icon-main", Skycons.RAIN);
+            {% elif weather.icon == 'sun' %}
+            skycons.add("icon-main", Skycons.CLEAR_DAY);
+            {% else %}
+            skycons.add("icon-main", Skycons.CLOUDY);
+            {% endif %}
             skycons.play();
         </script>
 
@@ -33,6 +39,8 @@
 
         <p>
             <em>{{ weather.now }}</em>
+            <br />
+            <em>{{ weather.location }}</em>
         </p>
         {{ weather }}
 
