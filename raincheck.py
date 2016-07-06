@@ -5,11 +5,10 @@ from weather import RainChecker
 app = Flask(__name__)
 
 
-@app.route("/check/<key>")
-def checkit(key):
-    latitude = 51.45
-    longitude = -2.6
-    checker = RainChecker(key, latitude, longitude)
+@app.route("/check/<location>")
+def checkit(location):
+    latitude, longitude = location.split(',')
+    checker = RainChecker(latitude, longitude)
     weather = checker.check()
     return render_template('hello.html', weather=weather)
 

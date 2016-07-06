@@ -1,16 +1,16 @@
 import requests
-import sys
+import os
 from datetime import datetime, timedelta
 
 API_URL = 'https://api.forecast.io/forecast'
+API_KEY = os.environ['API_KEY']
 # How many hours ahead should we show alerts for?
 FORECAST_HOURS = 18
 
 
 class RainChecker(object):
 
-    def __init__(self, api_key, lat, lng):
-        self.api_key = api_key
+    def __init__(self, lat, lng):
         self.latitude = lat
         self.longitude = lng
 
@@ -22,7 +22,7 @@ class RainChecker(object):
         """Grab raw data from forecast.io api"""
         url = "{base}/{key}/{lat},{lng}".format(
             base=API_URL,
-            key=self.api_key,
+            key=API_KEY,
             lat=self.latitude,
             lng=self.longitude,
         )
@@ -76,7 +76,6 @@ class RainChecker(object):
 
 
 if __name__ == "__main__":
-    api_key = sys.argv[1]
-    checker = RainChecker(api_key, 51.45, -2.6)
+    checker = RainChecker(51.45, -2.6)
     result = checker.check()
     print(result)
