@@ -16,8 +16,25 @@
 
         {% if weather %}
         <p>
-            {{ weather }}
+            <b>{{ weather.summary }}</b>
         </p>
+
+        {% if weather.high %}
+        <p>
+            H: {{ weather.high }}
+        </p>
+        {% endif %}
+
+        {% if weather.low %}
+        <p>
+            L: {{ weather.low }}
+        </p>
+        {% endif %}
+
+        <p>
+            <em>{{ weather.now }}</em>
+        </p>
+        {{ weather }}
         {% endif %}
         
     </body>
