@@ -35,6 +35,24 @@
             <em>{{ weather.now }}</em>
         </p>
         {{ weather }}
+
+        {% else %}
+
+        <script>
+            function getLocation() {
+            if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+            print("Geolocation is not supported by this browser.");
+            }
+            }
+            function showPosition(position) {
+            document.location = "check/" + position.coords.latitude + 
+            "," + position.coords.longitude;
+            }
+            getLocation();
+        </script>
+        
         {% endif %}
         
     </body>
