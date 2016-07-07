@@ -2,6 +2,7 @@
     <head>
         <title>Rain Check</title>
         <script src="/static/skycons.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.3/foundation.min.css" />
         <link rel="stylesheet" type="text/css" href="/static/style.css" />
     </head>
     <body >
@@ -25,15 +26,17 @@
             <b>{{ weather.summary }}</b>
         </p>
 
-        {% if weather.high %}
+        {% if weather.low %}
         <p>
-            H: {{ weather.high }}
+            {{ weather.low.date.strftime('%I%p') }}
+            {{ weather.low.summary }} (L)
         </p>
         {% endif %}
 
-        {% if weather.low %}
+        {% if weather.high %}
         <p>
-            L: {{ weather.low }}
+            {{ weather.low.date.strftime('%%I%p') }}
+            {{ weather.low.summary }} (H)
         </p>
         {% endif %}
 
