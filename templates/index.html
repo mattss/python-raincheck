@@ -28,15 +28,15 @@
 
         {% if weather.low %}
         <p>
-            {{ weather.low.date.strftime('%I%p') }}
+            {{ weather.low.date.strftime('%-I%p') }}:
             {{ weather.low.summary }} (L)
         </p>
         {% endif %}
 
         {% if weather.high %}
         <p>
-            {{ weather.low.date.strftime('%%I%p') }}
-            {{ weather.low.summary }} (H)
+            {{ weather.high.date.strftime('%-I%p') }}:
+            {{ weather.high.summary }} (H)
         </p>
         {% endif %}
 
