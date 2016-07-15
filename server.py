@@ -1,8 +1,12 @@
+import os
 from flask import Flask
+from flask_sslify import SSLify
 from flask import render_template
 from raincheck import RainChecker
 
 app = Flask(__name__)
+app.debug = os.environ.get('DEBUG', 'False') == 'True'
+sslify = SSLify(app)
 
 
 @app.route("/check/<location>")
